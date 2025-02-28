@@ -1,0 +1,50 @@
+
+
+bengali_to_roman_mapping_last_char = {
+    'ক': 'k', 'খ': 'kh', 'গ': 'g', 'ঘ': 'gh', 'ঙ': 'ng', 'চ': 'ch', 'ছ': 'chh', 'জ': 'j', 'ঝ': 'jh',
+    'ট': 't', 'ঠ': 'th', 'ড': 'd', 'ঢ': 'dh', 'ণ': 'n', 'ত': 't', 'থ': 'th', 'দ': 'd', 'ধ': 'dh',
+    'ন': 'nô', 'প': 'p', 'ফ': 'ph', 'ব': 'b', 'ভ': 'bh', 'ম': 'm', 'য': 'j', 'র': 'r', 'ল': 'l',
+    'শ': 'sh', 'ষ': 'sh', 'স': 'sh', 'হ': 'h', 'ড়': 'r', 'ঢ়': 'rh', 'য়': 'y', 'ৎ': 't'
+}
+# Mapping for Bengali to Roman Transliteration
+bengali_to_roman_mapping = {
+    'অ': 'ô', 'আ': 'a', 'ই': 'i', 'ঈ': 'ii', 'উ': 'u', 'ঊ': 'uu', 'ঋ': 'ri', 'এ': 'e', 'ঐ': 'oi',
+    'ও': 'o', 'ঔ': 'ou',
+    'া': 'a', 'ি': 'i', 'ী': 'ii', 'ু': 'u', 'ূ': 'uu', 'ৃ': 'ri', 'ে': 'e', 'ৈ': 'oi', 'ো': 'o', 'ৌ': 'ou',
+    'ক': 'kô', 'খ': 'khô', 'গ': 'gô', 'ঘ': 'ghô', 'ঙ': 'ngô', 'চ': 'chô', 'ছ': 'chhô', 'জ': 'jô', 'ঝ': 'jhô',
+    'ঞ': 'njô', 'ট': 'tô', 'ঠ': 'thô', 'ড': 'dô', 'ঢ': 'dhô', 'ণ': 'nô', 'ত': 'tô', 'থ': 'thô', 'দ': 'dô', 'ধ': 'dhô',
+    'ন': 'nô', 'প': 'pô', 'ফ': 'phô', 'ব': 'bô', 'ভ': 'bhô', 'ম': 'mô', 'য': 'jô', 'র': 'rô', 'ল': 'lô', 'শ': 'shô',
+    'ষ': 'shô', 'স': 'shô', 'হ': 'hô', 'ড়': 'rô', 'ঢ়': 'rhô', 'য়': 'yô', 'ৎ': 't', 'ঁ': 'n'
+}
+
+# Combination mapping for special cases (e.g., consonant + vowel)
+bengali_combination_mapping = {
+    'কা': 'kâ', 'খা': 'khâ', 'গা': 'gâ', 'ঘা': 'ghâ', 'ঙা': 'ngâ', 'চা': 'châ', 'ছা': 'chhâ', 'যা': 'jâ', 'ঝা': 'jhâ',
+    'টা': 'tâ', 'ঠা': 'thâ', 'ডা': 'dâ', 'ঢা': 'dhâ', 'ণা': 'nâ', 'তা': 'tâ', 'থা': 'thâ', 'দা': 'dâ', 'ধা': 'dhâ',
+    'না': 'nâ', 'পা': 'pâ', 'ফা': 'phâ', 'বা': 'bâ', 'ভা': 'bhâ', 'মা': 'mâ', 'রা': 'râ', 'লা': 'lâ', 'শা': 'shâ',
+    'ষা': 'shâ', 'সা': 'shâ', 'হা': 'hâ', 'ড়া': 'râ', 'ঢ়া': 'rhâ', 'য়া': 'yâ'
+}
+
+# Function to transliterate Bengali text to Roman
+def bengali_to_roman(text):
+    roman_text = ""
+    i = 0
+    while i < len(text):
+        # Check for consonant-vowel combinations
+        if i < len(text) - 1 and text[i:i+2] in bengali_combination_mapping:
+            roman_text += bengali_combination_mapping[text[i:i+2]]
+            i += 2
+        # Check for individual characters
+        elif text[i] in bengali_to_roman_mapping:
+            roman_text += bengali_to_roman_mapping[text[i]]
+            i += 1
+        # Default: retain the Bengali character if no mapping is found
+        else:
+            roman_text += text[i]
+            i += 1
+    return roman_text
+
+# Example usage
+bengali_text = "পছন্দ সুন্দর"
+romanized_text = bengali_to_roman(bengali_text)
+print(romanized_text)  # Expected output: "bânglâ bhâshâ"
